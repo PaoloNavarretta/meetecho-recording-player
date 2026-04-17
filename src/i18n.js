@@ -32,6 +32,7 @@ i18next
           str_noOpinion: "No Opinion",
           str_transcriptsUnavailable: "Transcripts not available",
           str_totalParticipants: "Present when poll closed",
+          str_shareVideo: "share this, at the current time",
         },
       },
     },

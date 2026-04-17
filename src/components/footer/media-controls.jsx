@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 // styles
 import "./media-controls.scss";
@@ -6,6 +7,9 @@ import "./media-controls.scss";
 // SVG Icons
 import iconPlay from "~/assets/images/icon--play.svg";
 import iconPause from "~/assets/images/icon--pause.svg";
+
+// React Icons
+import { TbShare3 } from "react-icons/tb";
 
 // Helpers
 import { msToHHMMSSTimeFormat } from "~/helpers/time-formatters-helpers";
@@ -16,8 +20,11 @@ const MediaControls = ({
   isPlaying,
   currentTime = 0,
   handlePlayPause,
+  handleShare = () => {},
   seekTo,
 }) => {
+  const { t } = useTranslation();
+
   // Transform the currentTime to the input range Value. It has to be between 0 and 0.999999
   const currentTimeValue = videoDuration
     ? (currentTime / videoDuration) * 1000
@@ -53,7 +60,7 @@ const MediaControls = ({
 
     // Calculate the position in MS of the mouse hover relative to video Duration
     const positionToMs = Math.trunc(
-      mousePositionToPercentage * (videoDuration / 100)
+      mousePositionToPercentage * (videoDuration / 100),
     );
     const msToParsedTime = msToHHMMSSTimeFormat(positionToMs);
 
@@ -65,6 +72,16 @@ const MediaControls = ({
     <div className="media-controls">
       <div className="controls-wrapper">
         <div className="controls">
+          <div
+            className="share-btn"
+            onClick={handleShare}
+          >
+            <TbShare3 />
+
+            <div className="share-btn__tooltip tooltip">
+              {t("str_shareVideo", "share this, at the current time")}
+            </div>
+          </div>
           <div className="play-pause-btn">
             <img
               onClick={handlePlayPause}

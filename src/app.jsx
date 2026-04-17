@@ -152,6 +152,27 @@ export default function App() {
     });
   };
 
+  // Share video at current Location
+  const handleShare = async () => {
+    try {
+      // Create a URL object from the current window location
+      const url = new URL(window.location.href);
+
+      // Convert currentTime to an integer
+      const timeInSeconds = Math.floor(currentTime);
+
+      // Safely set or update the 't' query parameter
+      url.searchParams.set("t", timeInSeconds);
+
+      // Copy the updated URL to the clipboard
+      await navigator.clipboard.writeText(url.toString());
+
+      alert(`Link copied to clipboard!\n${url.toString()}`);
+    } catch (error) {
+      console.error("Failed to copy link", error);
+    }
+  };
+
 useEffect(() => {
   if (sessionData?.videos?.length > 0) {
     const { type, src, start = 0 } = sessionData.videos[0];
@@ -230,6 +251,7 @@ useEffect(() => {
             handlePause={handlePause}
             handlePlayPause={handlePlayPause}
             handleCurrentTime={handleCurrentTime}
+            handleShare={handleShare}
             isPlaying={isPlaying}
             currentTime={currentTime}
             seekTo={seekTo}

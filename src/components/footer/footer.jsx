@@ -15,6 +15,7 @@ function Footer({
   handlePause,
   handlePlayPause,
   handleCurrentTime,
+  handleShare,
   isPlaying,
   currentTime,
   seekTo,
@@ -33,6 +34,7 @@ function Footer({
         handlePause={handlePause}
         handlePlayPause={handlePlayPause}
         handleCurrentTime={handleCurrentTime}
+        handleShare={handleShare}
         isPlaying={isPlaying}
         currentTime={currentTime}
         seekTo={seekTo}

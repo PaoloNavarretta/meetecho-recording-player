@@ -21,6 +21,35 @@
   }
 }
 
+.share-btn {
+  transition: all 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $color-black;
+  position: relative;
+
+  svg {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+  }
+}
+
+.share-btn__tooltip {
+  opacity: 0;
+  position: absolute;
+  bottom: -3.2rem;
+  left: -3rem;
+  transition: all 0.2s;
+  width: 8rem;
+}
+
+.share-btn:hover .share-btn__tooltip {
+  opacity: 1;
+}
+
+
 .play-pause-btn {
   transition: all 0.2s;
   display: flex;
@@ -151,4 +180,8 @@
 
 .App.theme--dark .progress-bar__time {
   color: $color-black;
+}
+
+.App.theme--dark .share-btn {
+  color: $color-white;
 }

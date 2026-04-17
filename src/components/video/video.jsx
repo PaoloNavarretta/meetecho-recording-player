@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useRef } from "react";
 import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
 
@@ -14,18 +14,33 @@ function VideoComponent({
   handlePause,
   seekTo,
 }) {
-  const { playerUrl } = useSelector((state) => state.sessionUI);
+  // 1. Pull videoStartTimeFromQuery from your Redux state
+  const { playerUrl, videoStartTimeFromQuery } = useSelector(
+    (state) => state.sessionUI,
+  );
+
+  // 2. Add a ref to ensure we only jump to the shared time ONCE on the very first load
+  const hasSeekedOnLoad = useRef(false);
 
   const onProgress = useCallback(
     (p) => {
       handleCurrentTime(Math.trunc(p.playedSeconds));
     },
-    [handleCurrentTime]
+    [handleCurrentTime],
   );
 
   const onReady = useCallback(() => {
-    seekTo(currentTime);
-  }, [seekTo, currentTime]);
+    // 3. If there is a shared time in Redux and we haven't seeked yet, jump to it
+    if (!hasSeekedOnLoad.current && videoStartTimeFromQuery) {
+      seekTo(Number(videoStartTimeFromQuery));
+      hasSeekedOnLoad.current = true;
+    }
+    // 4. Otherwise, fallback to the default behavior
+    else if (!hasSeekedOnLoad.current) {
+      seekTo(currentTime);
+      hasSeekedOnLoad.current = true;
+    }
+  }, [seekTo, currentTime, videoStartTimeFromQuery]);
 
   if (!playerUrl) {
     return <div>No video available</div>;
