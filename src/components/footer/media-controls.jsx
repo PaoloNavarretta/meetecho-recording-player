@@ -72,6 +72,14 @@ const MediaControls = ({
     <div className="media-controls">
       <div className="controls-wrapper">
         <div className="controls">
+          <div className="play-pause-btn">
+            <img
+              onClick={handlePlayPause}
+              src={isPlaying ? iconPause : iconPlay}
+              alt="play/pause button icon"
+            />
+          </div>
+
           <div
             className="share-btn"
             onClick={handleShare}
@@ -82,13 +90,7 @@ const MediaControls = ({
               {t("str_shareVideo", "share this, at the current time")}
             </div>
           </div>
-          <div className="play-pause-btn">
-            <img
-              onClick={handlePlayPause}
-              src={isPlaying ? iconPause : iconPlay}
-              alt="play/pause button icon"
-            />
-          </div>
+
           <div className="progress-bar__wrapper">
             <div
               className="progress-bar__overlay"

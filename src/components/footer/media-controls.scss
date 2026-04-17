@@ -69,7 +69,8 @@
   }
 
   .controls-wrapper .controls {
-    padding: 0;
+    width: auto;
+    justify-content: space-around;
   }
 }
 
@@ -158,6 +159,17 @@
 
   .progress-bar__wrapper:hover .progress-bar__tooltip {
     display: none;
+  }
+}
+
+// Mobile
+@media screen and (max-width: 768px) {
+  .progress-bar__wrapper {
+    display: none;
+  }
+
+  .controls {
+    justify-content: space-between;
   }
 }
 
